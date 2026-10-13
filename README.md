@@ -77,7 +77,7 @@ A aplicação estará disponível no seu navegador através do endereço `http:/
 
 ---
 
-## 📐 Estrutura de Páginas e Rotas
+## 📐 Estrutura de Páginas e Rotas ( em desenvolvimento )
 
 Abaixo está o mapeamento inicial da estrutura de páginas configurada no ecossistema do Floravel:
 
