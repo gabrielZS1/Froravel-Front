@@ -10,11 +10,10 @@ O **Floravel** é um projeto desenvolvido para conscientizar, acolher e conectar
 
 O projeto utiliza uma stack moderna para garantir performance, escalabilidade e segurança dos dados das usuárias:
 
-*   **Front-end:** [Substitua por React / Next.js / Vue / HTML5, etc.]
-*   **Back-end:** [Substitua por Node.js / Python / Laravel, etc.]
-*   **Banco de Dados:** [Substitua por PostgreSQL / MongoDB / MySQL, etc.]
-*   **Estilização:** [Substitua por TailwindCSS / Styled Components / Sass, etc.]
-
+*   **Front-end:** React
+*   **Back-end:** Node.js & Java
+*   **Banco de Dados:** MySQL
+*   **Estilização:** TailwindCSS
 ---
 
 ## 🛠️ Como Iniciar o Projeto
