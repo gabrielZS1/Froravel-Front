@@ -10,7 +10,27 @@ function App() {
     <h1 class="text-3xl font-bold underline">
     Hello world!
     </h1>
+
+
+
+
   );
 }
 
 export default App;
+
+
+     <BrowserRouter>
+      <ScrollToTop /> 
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+
+          {/* Sem header/footer */}
+          {/* <Route path="/login" element={<Login />} /> */} 
+          
+
+          {/* Com header/footer */}
+          {/* <Route path="/home" element={<Layout><Home /></Layout>} /> */}
+
+        </Routes>
+    </BrowserRouter>
