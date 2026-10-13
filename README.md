@@ -31,7 +31,8 @@ Antes de começar, você vai precisar ter instalado em seu computador:
 Abra o terminal e execute o comando abaixo:
 
 ```bash
-git clone https://github.com[seu-usuario]/floravel.git
+git clone https://github.com/gabrielZS1/Froravel-Front.git
+
 cd FloravelFront
 ```
 
