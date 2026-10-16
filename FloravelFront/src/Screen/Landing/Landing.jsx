@@ -4,6 +4,7 @@ import HomeScreen from "./HomeScreen";
 import Sobre from "./SobreScreen";
 import Recursos from "./RecursosScreen";
 import Contato from "./ContatoScreen";
+import FlorFinal from "./Flor";
  
 export default function Landing() {
   const { state } = useLocation();
@@ -19,6 +20,7 @@ export default function Landing() {
       <section id="sobre" className="bg-[#fbf1ee]"><Sobre /></section>
       <section id="recursos" className="bg-gradient-to-b from-[#fbf1ee] to-[#f7e3e6]"><Recursos /></section>
       <section id="contato" className="bg-[#f7e3e6]"><Contato /></section>
+      <FlorFinal />
     </>
   );
 }
