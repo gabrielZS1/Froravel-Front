@@ -11,7 +11,7 @@ export default function FlowerScroll({ background, children }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     const section = sectionRef.current;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -30,6 +30,16 @@ export default function FlowerScroll({ background, children }) {
       if (!img || !img.complete || img.naturalWidth === 0) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const d = frame.data;
+      for (let p = 0; p < d.length; p += 4) {
+        const max = Math.max(d[p], d[p + 1], d[p + 2]);
+        const min = Math.min(d[p], d[p + 1], d[p + 2]);
+        const cor = max - min; // cinza e branco ≈ 0, a flor tem valor alto
+        d[p + 3] = Math.min(1, Math.max(0, (cor - 10) / 20)) * 255;
+      }
+      ctx.putImageData(frame, 0, 0);
     };
 
     images[0].onload = () => {
@@ -66,24 +76,31 @@ export default function FlowerScroll({ background, children }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative h-[400vh]" style={{ "--p": 0 }}>
-      <div className="sticky top-0 h-screen overflow-hidden">
-        {background}
+  <section ref={sectionRef} className="relative h-[400vh]" style={{ "--p": 0 }}>
+    <div className="sticky top-0 h-screen overflow-hidden">
+      {background}
 
-        {/* multiply: o fundo claro do vídeo some e só a flor aparece sobre o degradê */}
+      {/* Área reservada: entre o header (top-20) e a faixa de baixo (bottom-48) */}
+      <div className="absolute inset-x-0 bottom-48 top-20 flex items-center justify-center">
         <canvas
           ref={canvasRef}
           role="img"
           aria-label="Uma flor que se abre conforme você rola a página"
-          className="absolute left-1/2 top-1/2 w-[min(110vw,1000px)] -translate-x-1/2 -translate-y-[58%] opacity-60 mix-blend-multiply lg:opacity-100"
+          className="h-full w-auto max-w-none scale-[1.5] object-contain opacity-60 mix-blend-multiply lg:opacity-100"
           style={{
-            WebkitMaskImage: "radial-gradient(circle at center, #000 42%, transparent 70%)",
-            maskImage: "radial-gradient(circle at center, #000 42%, transparent 70%)",
+            filter: "brightness(1.03) contrast(1.25)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
+            maskImage:
+              "linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent)",
+            WebkitMaskComposite: "source-in",
+            maskComposite: "intersect",
           }}
         />
-
-        <div className="relative z-10 h-full">{children}</div>
       </div>
-    </section>
-  );
+
+      <div className="relative z-10 h-full">{children}</div>
+    </div>
+  </section>
+);
 }

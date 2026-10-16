@@ -63,16 +63,16 @@ const stats = [
 export default function HomeScreen() {
   return (
     <FlowerScroll background={background}>
-      <div className="font-body flex h-full flex-col text-[#2f3a36]">
+      <div className="font-body flex h-full flex-col pt-20 text-[#2f3a36]">
         {/* Centro */}
-        <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-6 px-6 lg:grid-cols-[1.15fr_1fr_1fr] lg:px-10">
+        <main className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-6 px-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.8fr)_minmax(0,1fr)] lg:px-10">
           <div>
             <div className="mb-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-[#5b6561]">
               <span className="grow-x h-px w-8 bg-[#c98a9d]" style={{ "--d": "200ms" }} />
               <SplitText text="Apoio real para mães reais" delay={300} />
             </div>
 
-            <h1 className="font-display text-[clamp(2.5rem,5vw,4.4rem)] font-light leading-[1.05]">
+            <h1 className="font-display text-[clamp(2.2rem,min(3.9vw,7.5vh),4rem)] font-light leading-[1.05]">
               <span className="block">
                 <SplitText text="Você" delay={600} />{" "}
                 <SplitText text="não" delay={760} className="italic" />{" "}
@@ -123,7 +123,7 @@ export default function HomeScreen() {
         </main>
 
         {/* Dica de scroll: some conforme a flor abre */}
-        <div className="pointer-events-none flex flex-col items-center gap-2 pb-3 text-[10px] uppercase tracking-[0.3em] text-[#8a6f78]"
+        <div className="pointer-events-none flex flex-col items-center gap-2 pb-3 text-[10px] uppercase tracking-[0.3em] text-[#8a6f78] [@media(max-height:760px)]:hidden"
           style={{ opacity: "calc(1 - var(--p) * 8)" }}>
           Role para a flor se abrir
           <span className="nudge h-8 w-px bg-[#c98a9d]" />
@@ -151,6 +151,11 @@ export default function HomeScreen() {
           </div>
         </footer>
       </div>
+
+      
     </FlowerScroll>
+
+    
   );
 }
+

@@ -35,3 +35,11 @@
     animation: none; opacity: 1; transform: none; filter: none;
   }
 }
+
+html { scroll-behavior: smooth; }
+ 
+/* Animações só começam quando a seção entra na tela (componente Reveal) */
+[data-reveal]:not([data-visible]) :is(.letter, .fade-up, .fade-left, .grow-x) {
+  animation-play-state: paused;
+}
+ 
