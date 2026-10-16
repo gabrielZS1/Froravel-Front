@@ -1,6 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import ScrollToTop from './Components/Layout/ScrollToTop';
 import Layout from './Components/Layout/Layout'

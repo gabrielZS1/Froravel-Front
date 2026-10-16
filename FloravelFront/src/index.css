@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+/* Cole no FINAL do seu src/index.css */
+.font-display { font-family: 'Newsreader', Georgia, serif; }
+.font-body { font-family: 'Nunito', system-ui, sans-serif; }
+
+@keyframes letter-in {
+  from { opacity: 0; transform: translateY(.55em) rotate(4deg); filter: blur(8px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes fade-up   { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes fade-down { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: none; } }
+@keyframes fade-left { from { opacity: 0; transform: translateX(56px); } to { opacity: 1; transform: none; } }
+@keyframes grow-x    { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes float     { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes drift     { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(40px, -30px) scale(1.12); } }
+@keyframes nudge     { 0%, 100% { transform: scaleY(.4); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+.letter {
+  display: inline-block; opacity: 0;
+  animation: letter-in .8s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: calc(var(--d, 0ms) + var(--i, 0) * var(--s, 32ms));
+}
+.fade-up   { opacity: 0; animation: fade-up .9s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: var(--d, 0ms); }
+.fade-down { opacity: 0; animation: fade-down .9s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: var(--d, 0ms); }
+.fade-left { opacity: 0; animation: fade-left 1s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: var(--d, 0ms); }
+.grow-x    { transform-origin: left; transform: scaleX(0); animation: grow-x .9s ease-out forwards; animation-delay: var(--d, 0ms); }
+.float     { animation: float 6s ease-in-out infinite; }
+.drift     { animation: drift 14s ease-in-out infinite; }
+.drift-rev { animation: drift 18s ease-in-out infinite reverse; }
+.nudge     { transform-origin: top; animation: nudge 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .letter, .fade-up, .fade-down, .fade-left, .grow-x, .float, .drift, .drift-rev, .nudge {
+    animation: none; opacity: 1; transform: none; filter: none;
+  }
+}
