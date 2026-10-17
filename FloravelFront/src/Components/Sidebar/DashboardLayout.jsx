@@ -1,5 +1,4 @@
-import React from 'react';
-import Sidebar from './Sidebar'; // Ajuste o caminho conforme o local onde salvou sua Sidebar
+import Sidebar from './Sidebar';
 
 export default function DashboardLayout({ children }) {
   return (

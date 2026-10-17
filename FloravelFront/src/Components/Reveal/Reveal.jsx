@@ -1,5 +1,3 @@
-// src/Components/Reveal/Reveal.jsx
-// Envolve um bloco: letras e fade-ups dentro dele só animam quando ele aparece na tela.
 import { useEffect, useRef, useState } from "react";
 
 export default function Reveal({ children, className = "" }) {

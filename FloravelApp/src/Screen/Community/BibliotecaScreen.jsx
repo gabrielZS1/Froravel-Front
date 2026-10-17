@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function BibliotecaScreen() {
   return (
     <div className="space-y-8 max-w-5xl">
