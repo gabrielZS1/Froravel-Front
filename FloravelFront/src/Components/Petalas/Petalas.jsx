@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 // ====== AJUSTES (mexa só aqui) ======
 const CONFIG = {
-  densidade: 26000,  // área em px² por pétala: MENOR = mais pétalas
+  densidade: 20000,  // área em px² por pétala: MENOR = mais pétalas
   min: 22,           // mínimo de pétalas (celular)
   max: 70,           // máximo de pétalas (tela grande)
   tamanho: [14, 36], // px: da pétala "longe" até a "perto"

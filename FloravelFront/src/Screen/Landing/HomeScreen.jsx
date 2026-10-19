@@ -7,7 +7,7 @@ import HeroVideo from "../../Components/HeroVideo/HeroVideo";
 
 const rose = "text-[#a8566f]";
 
-const USAR_VIDEO = true; // false = volta para a flor animada no scroll
+const USAR_VIDEO = true; 
 const Hero = USAR_VIDEO ? HeroVideo : FlowerScroll;
 
 const Arrow = () => (
@@ -24,7 +24,7 @@ const Leaf = () => (
   </svg>
 );
 
-// Número que "sobe" até o valor final
+
 function CountUp({ to, prefix = "", suffix = "", delay = 2400, duration = 1800 }) {
   const [v, setV] = useState(0);
   useEffect(() => {
@@ -62,11 +62,11 @@ export default function HomeScreen() {
   return (
     <Hero background={background}>
       <div className="font-body relative flex h-full flex-col pt-20 text-[#2f3a36]">
-        {/* Véu suave só atrás do texto: as pétalas não atrapalham mais a leitura */}
+        
         <div aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#fdf4ee]/85 via-[#fdf4ee]/55 to-transparent" />
 
-        {/* Centro */}
+       
         <main className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-1 items-center px-6 lg:px-14">
           <div className="max-w-3xl">
             <div className="mb-7 flex items-center gap-4 text-xs uppercase tracking-[0.28em] text-[#46504c] lg:text-[13px]">
