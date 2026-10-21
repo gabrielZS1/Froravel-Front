@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Home, ClipboardList, HeartHandshake, MessageSquare, Calendar, Bell,
   LogOut, ArrowRight, ChevronRight, ChevronLeft, BookOpen
