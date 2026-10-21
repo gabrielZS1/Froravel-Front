@@ -27,3 +27,46 @@
   --font-fraunces: "Fraunces", serif;
   --font-dmsans: "DM Sans", sans-serif;
 }
+
+
+/* 1. ROLAGEM SUAVE (SMOOTH SCROLL) GLOBAL */
+html, body {
+  scroll-behavior: smooth;
+}
+
+/* 2. EFEITO DE "MOLA" EM TODOS OS BOTÕES */
+/* Sempre que a mãe clicar num botão, ele encolhe ligeiramente (efeito touch) */
+button {
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+button:active {
+  transform: scale(0.96) !important;
+}
+
+/* 3. EFEITO DE DESLIZAR (SLIDE UP) PARA AS PÁGINAS */
+/* Como já tínhamos colocado a classe "animate-fadeIn" nas telas, 
+   agora vamos dizer ao CSS para fazer essa animação deslizar de baixo para cima */
+.animate-fadeIn {
+  animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Começa 20 pixels mais abaixo */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Termina na posição original */
+  }
+}
+
+/* 4. EFEITO DE DESLIZAR LATERAL PARA A SIDEBAR (Menus) */
+.animate-slideRight {
+  animation: slideRightFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideRightFade {
+  0% { opacity: 0; transform: translateX(-15px); }
+  100% { opacity: 1; transform: translateX(0); }
+}

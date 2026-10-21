@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-
-import { Search, HeartHandshake, Video, ArrowRight, ArrowLeft, Calendar, Clock, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
-
+import { Search, HeartHandshake, Video, ArrowRight, ArrowLeft, Calendar, Clock, CheckCircle, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 
 const PROFISSIONAIS_MOCK = [
   { id: 1, initials: 'HS', name: 'Dra. Helena Souza', spec: 'Psicologia Perinatal', desc: 'Um espaço de escuta para acolher você e as transformações da maternidade, respeitando o seu momento.', bgInitials: 'bg-superficie', colorInitials: 'text-secondary', preco: '0,00' },
@@ -10,15 +8,18 @@ const PROFISSIONAIS_MOCK = [
 ];
 
 const FilterPill = ({ text, active, onClick }) => (
-  <button onClick={onClick} className={`px-6 py-2.5 rounded-full text-[14px] font-bold whitespace-nowrap border transition ${active ? 'bg-superficie border-superficie text-primary' : 'bg-white border-gray5 text-gray3 hover:border-gray4'}`}>
+  <button onClick={onClick} className={`px-6 py-2.5 rounded-full text-[14px] font-bold whitespace-nowrap border transition ${active ? 'bg-superficie border-superficie text-primary shadow-sm' : 'bg-white border-gray5 text-gray3 hover:border-gray4'}`}>
     {text}
   </button>
 );
 
 export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEmFoco, setProfEmFoco }) {
   const [activeFilter, setActiveFilter] = useState('Todas');
-  const [selectedDay, setSelectedDay] = useState(20);
+  const [selectedDay, setSelectedDay] = useState(22);
   const [selectedTime, setSelectedTime] = useState(null);
+  
+  // NOVOS ESTADOS PARA A GESTÃO DO BOTÃO
+  const [isBooking, setIsBooking] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const diasOutubro = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -30,29 +31,39 @@ export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEm
   const handleConfirmarAgendamento = () => {
     if (!selectedTime) return;
     
-    const novoEncontro = {
-      id: Date.now(),
-      profId: profEmFoco.id,
-      profName: profEmFoco.name,
-      spec: profEmFoco.spec,
-      date: `${selectedDay}/10/2026`,
-      time: selectedTime,
-      type: 'Consulta · Demonstração',
-      status: 'CONFIRMADO'
-    };
-
-    adicionarAgendamento(novoEncontro); 
-    setIsConfirmed(true);
+    // Inicia a animação de "A carregar" no botão
+    setIsBooking(true);
     
+    // Simula a demora da API do Back-end (1.5 segundos)
     setTimeout(() => {
-      setProfEmFoco(null);
-      setIsConfirmed(false);
-      setSelectedTime(null);
-      setActiveTab('booking'); 
-    }, 3000);
+      const novoEncontro = {
+        id: Date.now(),
+        profId: profEmFoco.id,
+        profName: profEmFoco.name,
+        spec: profEmFoco.spec,
+        date: `${selectedDay}/10/2026`,
+        time: selectedTime,
+        type: 'Consulta · Demonstração',
+        status: 'CONFIRMADO'
+      };
+
+      adicionarAgendamento(novoEncontro); 
+      
+      // Termina o carregamento e mostra o ecrã verde
+      setIsBooking(false);
+      setIsConfirmed(true);
+      
+      // Aguarda 3 segundos para ler o sucesso e depois muda de aba
+      setTimeout(() => {
+        setProfEmFoco(null);
+        setIsConfirmed(false);
+        setSelectedTime(null);
+        setActiveTab('booking'); 
+      }, 3000);
+      
+    }, 1500);
   };
 
-  // TELA 2: CALENDÁRIO DA PSICÓLOGA (Abre quando clica em Ver Agenda)
   if (profEmFoco) {
     return (
       <div className="animate-fadeIn font-dmsans h-full max-w-5xl mx-auto">
@@ -83,17 +94,17 @@ export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEm
             <p className="text-[12px] text-gray4">Esta confirmação é simulada. Não gera atendimento real.</p>
           </div>
 
-          <div className="lg:col-span-3 bg-white border border-gray5 rounded-3xl p-8 shadow-sm">
+          <div className="lg:col-span-3 bg-white border border-gray5 rounded-3xl p-8 shadow-sm relative overflow-hidden">
             {isConfirmed ? (
-              <div className="h-full flex flex-col items-center justify-center text-center py-20">
-                <div className="w-16 h-16 rounded-full bg-success/10 text-success flex items-center justify-center mb-6">
-                  <CheckCircle size={32} />
+              <div className="h-full flex flex-col items-center justify-center text-center py-20 animate-fadeIn">
+                <div className="w-20 h-20 rounded-full bg-success/10 text-success flex items-center justify-center mb-6 animate-[bounce_1s_ease-in-out]">
+                  <CheckCircle size={40} />
                 </div>
-                <h3 className="text-[24px] font-fraunces font-bold text-gray1 mb-2">Encontro agendado!</h3>
+                <h3 className="text-[28px] font-fraunces font-bold text-gray1 mb-2">Encontro agendado!</h3>
                 <p className="text-[16px] text-gray3">Estamos redirecionando você para a sua agenda...</p>
               </div>
             ) : (
-              <>
+              <div className={isBooking ? "opacity-50 pointer-events-none transition-opacity" : "transition-opacity"}>
                 <div className="flex items-center justify-between mb-8">
                   <ChevronLeft size={20} className="text-gray4 cursor-pointer hover:text-gray1" />
                   <span className="font-bold text-gray1">Outubro De 2026</span>
@@ -110,7 +121,7 @@ export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEm
                     <button 
                       key={dia} 
                       onClick={() => setSelectedDay(dia)}
-                      className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-[15px] font-medium transition ${selectedDay === dia ? 'bg-[#9C7571] text-white shadow-md' : 'text-gray2 hover:bg-fundo'}`}
+                      className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-[15px] font-medium transition ${selectedDay === dia ? 'bg-[#9C7571] text-white shadow-md transform scale-110' : 'text-gray2 hover:bg-fundo'}`}
                     >
                       {dia}
                     </button>
@@ -124,22 +135,33 @@ export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEm
                       <button 
                         key={hora} 
                         onClick={() => setSelectedTime(hora)}
-                        className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition ${selectedTime === hora ? 'border-primary bg-primary text-white' : 'border-gray5 text-gray2 hover:border-gray4'}`}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all ${selectedTime === hora ? 'border-primary bg-primary text-white shadow-md transform scale-105' : 'border-gray5 text-gray2 hover:border-gray4'}`}
                       >
                         <Clock size={16} /> {hora}
                       </button>
                     ))}
                   </div>
 
+                  {/* NOVO: BOTÃO COM FEEDBACK DE CARREGAMENTO */}
                   <button 
                     onClick={handleConfirmarAgendamento}
-                    disabled={!selectedTime}
-                    className="w-full bg-[#E5C6C6] hover:bg-[#D5B6B6] text-white py-4 rounded-full text-[16px] font-bold transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    disabled={!selectedTime || isBooking}
+                    className={`w-full py-4 rounded-full text-[16px] font-bold transition flex items-center justify-center gap-2 ${
+                      !selectedTime 
+                        ? 'bg-gray5 text-gray4 cursor-not-allowed' 
+                        : isBooking
+                        ? 'bg-[#D5B6B6] text-white cursor-wait'
+                        : 'bg-[#E5C6C6] hover:bg-[#D5B6B6] text-white shadow-sm hover:shadow-md'
+                    }`}
                   >
-                    Confirmar agendamento <CheckCircle size={18} />
+                    {isBooking ? (
+                      <> <Loader2 size={18} className="animate-spin" /> Confirmando com a clínica... </>
+                    ) : (
+                      <> Confirmar agendamento <CheckCircle size={18} /> </>
+                    )}
                   </button>
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
@@ -147,7 +169,6 @@ export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEm
     );
   }
 
-  // TELA 1: LISTA DE PROFISSIONAIS
   return (
     <div className="animate-fadeIn font-dmsans h-full">
       <div className="mb-8">
@@ -171,13 +192,13 @@ export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEm
 
       <div className="space-y-4">
         {profissionaisFiltrados.map((prof) => (
-          <div key={prof.id} className="bg-white p-8 rounded-[32px] border border-gray5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-sm transition">
+          <div key={prof.id} className="bg-white p-8 rounded-[32px] border border-gray5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-sm transition group">
             <div className="flex items-start gap-6">
               <div className={`w-[84px] h-[84px] rounded-full flex items-center justify-center text-[28px] font-bold font-fraunces shrink-0 ${prof.bgInitials} ${prof.colorInitials}`}>
                 {prof.initials}
               </div>
               <div>
-                <h3 className="text-[24px] font-fraunces font-bold text-gray1 mb-1">{prof.name}</h3>
+                <h3 className="text-[24px] font-fraunces font-bold text-gray1 mb-1 group-hover:text-primary transition">{prof.name}</h3>
                 <p className={`text-[14px] font-bold mb-4 ${prof.colorInitials}`}>{prof.spec}</p>
                 <p className="text-[16px] text-gray3 leading-relaxed max-w-2xl mb-4">{prof.desc}</p>
                 <p className="text-[14px] text-gray4 flex items-center gap-1.5 font-medium">
@@ -185,8 +206,7 @@ export default function ApoioScreen({ setActiveTab, adicionarAgendamento, profEm
                 </p>
               </div>
             </div>
-            {/* ESTE É O BOTÃO QUE ESTAVA A FALTAR ATUALIZAR */}
-            <button onClick={() => setProfEmFoco(prof)} className="px-6 py-2.5 rounded-full border border-gray4 text-gray1 text-[15px] font-bold flex items-center gap-2 hover:bg-fundo transition shrink-0">
+            <button onClick={() => setProfEmFoco(prof)} className="px-6 py-2.5 rounded-full border border-gray4 text-gray1 text-[15px] font-bold flex items-center gap-2 hover:bg-fundo hover:border-primary transition shrink-0 transform group-hover:translate-x-1">
               Ver agenda <ArrowRight size={18} />
             </button>
           </div>

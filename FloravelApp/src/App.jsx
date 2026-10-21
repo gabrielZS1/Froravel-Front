@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  Home, ClipboardList, HeartHandshake, MessageSquare, Calendar, Bell, 
+  Home, ClipboardList, HeartHandshake, MessageSquare, Calendar, Bell,
   LogOut, ArrowRight, ChevronRight, ChevronLeft, BookOpen
 } from 'lucide-react';
 
@@ -17,9 +17,8 @@ import AjudaScreen from './Screen/Services/AjudaScreen';
 const NavItem = ({ icon, label, active, onClick }) => (
   <button
     onClick={onClick}
-    className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-[15px] font-medium transition-all font-dmsans ${
-      active ? 'bg-superficie text-primary' : 'text-gray3 hover:bg-fundo hover:text-gray1'
-    }`}
+    className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-[15px] font-medium transition-all font-dmsans ${active ? 'bg-superficie text-primary' : 'text-gray3 hover:bg-fundo hover:text-gray1'
+      }`}
   >
     {icon} {label}
   </button>
@@ -55,7 +54,7 @@ export default function App() {
   // 1. ESTADOS DE NAVEGAÇÃO
   const [activeTab, setActiveTab] = useState('home');
   const [history, setHistory] = useState(['home']);
-  
+
   // 2. ESTADOS DOS MODAIS/MENUS
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
@@ -64,8 +63,8 @@ export default function App() {
   const notifRef = useRef(null);
 
   // 3. ESTADOS GLOBAIS (A "MEMÓRIA" DAS CONSULTAS)
-  const [agendamentosGlobais, setAgendamentosGlobais] = useState([]); 
-  const [profEmFoco, setProfEmFoco] = useState(null); 
+  const [agendamentosGlobais, setAgendamentosGlobais] = useState([]);
+  const [profEmFoco, setProfEmFoco] = useState(null);
 
   // Fecha notificações ao clicar fora
   useEffect(() => {
@@ -107,25 +106,34 @@ export default function App() {
       <LogoutModal isOpen={isLogoutModalOpen} onConfirm={() => window.location.href = '/'} onCancel={() => setIsLogoutModalOpen(false)} />
 
       {/* SIDEBAR */}
-      <aside className="w-72 bg-white border-r border-gray5 flex flex-col justify-between py-6 px-4">
+      <aside className="w-72 bg-white border-r border-gray5 flex flex-col justify-between py-6 px-4 z-30">
         <div>
-          <div className="flex flex-col items-start px-2 mb-10">
-            <div className="flex items-center gap-2 text-[28px] font-fraunces text-primary font-bold">
-               <span className="text-[32px] text-secondary">❀</span> florável
-            </div>
+         {/* ÁREA DO LOGOTIPO */}
+          <div 
+            className="flex items-center gap-3 px-4 mb-10 cursor-pointer group"
+            onClick={() => handleTabChange('home')}
+          >
+            <img 
+              src="/LogoFin.png" 
+              alt="Logo Florável" 
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+            <span className="text-[28px] font-fraunces text-primary font-bold tracking-tight transition-opacity duration-300 group-hover:opacity-80">
+              florável
+            </span>
           </div>
           <nav className="space-y-2">
-            <NavItem icon={<Home size={20}/>} label="Página inicial" active={activeTab === 'home'} onClick={() => handleTabChange('home')} />
-            <NavItem icon={<ClipboardList size={20}/>} label="Quiz de bem-estar" active={activeTab === 'quiz'} onClick={() => handleTabChange('quiz')} />
-            <NavItem icon={<HeartHandshake size={20}/>} label="Rede de apoio" active={activeTab === 'network'} onClick={() => handleTabChange('network')} />
-            <NavItem icon={<MessageSquare size={20}/>} label="Rodas de conversa" active={activeTab === 'groups'} onClick={() => handleTabChange('groups')} />
-            <NavItem icon={<Calendar size={20}/>} label="Meus agendamentos" active={activeTab === 'booking'} onClick={() => handleTabChange('booking')} />
-            <NavItem icon={<BookOpen size={20}/>} label="Conteúdos e Biblioteca" active={activeTab === 'library'} onClick={() => handleTabChange('library')} />
+            <NavItem icon={<Home size={20} />} label="Página inicial" active={activeTab === 'home'} onClick={() => handleTabChange('home')} />
+            <NavItem icon={<ClipboardList size={20} />} label="Quiz de bem-estar" active={activeTab === 'quiz'} onClick={() => handleTabChange('quiz')} />
+            <NavItem icon={<HeartHandshake size={20} />} label="Rede de apoio" active={activeTab === 'network'} onClick={() => handleTabChange('network')} />
+            <NavItem icon={<MessageSquare size={20} />} label="Rodas de conversa" active={activeTab === 'groups'} onClick={() => handleTabChange('groups')} />
+            <NavItem icon={<Calendar size={20} />} label="Meus agendamentos" active={activeTab === 'booking'} onClick={() => handleTabChange('booking')} />
+            <NavItem icon={<BookOpen size={20} />} label="Conteúdos e Biblioteca" active={activeTab === 'library'} onClick={() => handleTabChange('library')} />
           </nav>
 
           {/* === INSIRA ESTE BLOCO AQUI (LOGO ABAIXO DO </nav>) === */}
-          <div 
-            className="mt-8 bg-superficie p-5 rounded-2xl mx-2 cursor-pointer hover:bg-superficie/80 transition" 
+          <div
+            className="mt-8 bg-superficie p-5 rounded-2xl mx-2 cursor-pointer hover:bg-superficie/80 transition"
             onClick={() => handleTabChange('help')}
           >
             <HeartHandshake className="text-primary mb-2" size={24} />
@@ -136,10 +144,10 @@ export default function App() {
             </button>
           </div>
           {/* ====================================================== */}
-          
-    
-        
-        {/* Rodapé: Mariana Silva */}
+
+
+
+          {/* Rodapé: Mariana Silva */}
         </div>
         <div className="flex items-center justify-between px-2 pt-4 border-t border-gray5">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleTabChange('perfil')}>
@@ -152,7 +160,7 @@ export default function App() {
 
       {/* ÁREA PRINCIPAL */}
       <main className="flex-1 flex flex-col h-screen overflow-hidden">
-        
+
         {/* CABEÇALHO */}
         <header className="h-20 flex items-center justify-between px-8 bg-white border-b border-gray5/50 z-20">
           <div className="flex items-center gap-3 text-[14px]">
@@ -185,31 +193,34 @@ export default function App() {
         </header>
 
         {/* ÁREA DINÂMICA (ONDE A MAGIA ACONTECE) */}
-        <div className="flex-1 overflow-y-auto p-8 lg:px-16 pb-20 bg-fundo">
+        {/* ÁREA DINÂMICA */}
+        <div className="flex-1 overflow-y-auto scroll-smooth p-8 lg:px-16 pb-20 bg-fundo">
           {activeTab === 'home' && <PainelScreen setActiveTab={handleTabChange} />}
-          {activeTab === 'quiz' && <CheckInScreen />}
+          {activeTab === 'quiz' && <CheckInScreen setActiveTab={handleTabChange} />}
           {activeTab === 'groups' && <ComunidadeScreen />}
           {activeTab === 'help' && <AjudaScreen />}
           {activeTab === 'perfil' && <PerfilScreen />}
           {activeTab === 'library' && <BibliotecaScreen />}
-          
+
           {/* AS DUAS TELAS QUE PARTILHAM A MEMÓRIA GLOBAAL */}
           {activeTab === 'booking' && (
-            <AgendamentoScreen 
-              setActiveTab={handleTabChange} 
+            <AgendamentoScreen
+              setActiveTab={handleTabChange}
               agendamentos={agendamentosGlobais}
               cancelarAgendamento={(id) => setAgendamentosGlobais(prev => prev.filter(a => a.id !== id))}
             />
           )}
           {activeTab === 'network' && (
-            <RedeApoioScreen 
-              setActiveTab={handleTabChange} 
+            <RedeApoioScreen
+              setActiveTab={handleTabChange}
               adicionarAgendamento={(novo) => setAgendamentosGlobais(prev => [...prev, novo])}
               profEmFoco={profEmFoco}
               setProfEmFoco={setProfEmFoco}
             />
           )}
         </div>
+
+
       </main>
     </div>
   );
