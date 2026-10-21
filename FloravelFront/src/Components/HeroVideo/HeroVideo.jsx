@@ -19,12 +19,12 @@ const mascara =
 const ajuste =
   ZOOM < 1
     ? {
-        transform: `scale(${ZOOM})`,
-        WebkitMaskImage: mascara,
-        maskImage: mascara,
-        WebkitMaskComposite: "source-in",
-        maskComposite: "intersect",
-      }
+      transform: `scale(${ZOOM})`,
+      WebkitMaskImage: mascara,
+      maskImage: mascara,
+      WebkitMaskComposite: "source-in",
+      maskComposite: "intersect",
+    }
     : {};
 
 export default function HeroVideo({ background, children }) {
@@ -43,7 +43,7 @@ export default function HeroVideo({ background, children }) {
     const v = videoRef.current;
     if (!v) return;
     const io = new IntersectionObserver(
-      ([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()),
+      ([e]) => (e.isIntersecting ? v.play().catch(() => { }) : v.pause()),
       { threshold: 0.1 }
     );
     io.observe(v);
@@ -86,7 +86,9 @@ export default function HeroVideo({ background, children }) {
             <source src="/video/hero-mobile.mp4" type="video/mp4" />
           ) : (
             <>
-              <source src="/video/hero.webm" type="video/webm" />
+             
+              
+              <source src="/video/VideoLadingPage.mp4" type="video/mp4" />
               <source src="/video/hero.mp4" type="video/mp4" />
             </>
           )}
