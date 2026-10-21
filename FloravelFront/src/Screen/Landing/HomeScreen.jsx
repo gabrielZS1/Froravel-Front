@@ -66,26 +66,25 @@ export default function HomeScreen() {
         <div aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#fdf4ee]/85 via-[#fdf4ee]/55 to-transparent" />
 
-       
-        <main className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-1 items-center px-6 lg:px-14">
+        <main className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center px-6 text-center lg:px-14">
           <div className="max-w-3xl">
             <div className="mb-7 flex items-center gap-4 text-xs uppercase tracking-[0.28em] text-[#46504c] lg:text-[13px]">
               <span className="grow-x h-px w-10 bg-[#c98a9d]" style={{ "--d": "200ms" }} />
-              <SplitText text="Apoio real para mães reais" delay={300} />
+              <SplitText text="Apoio real para mães reais" delay={50} />
             </div>
 
             <h1 className="font-display text-[clamp(2.8rem,min(5vw,9.5vh),5.75rem)] font-light leading-[1.04] tracking-[-0.01em]">
               <span className="block">
-                <SplitText text="Você" delay={600} />{" "}
-                <SplitText text="não" delay={760} className="italic" />{" "}
-                <SplitText text="precisa" delay={900} />
+                <SplitText text="Você" delay={250} />{" "}
+                <SplitText text="não" delay={510} className="italic" />{" "}
+                <SplitText text="precisa" delay={650} />
               </span>
-              <span className="block"><SplitText text="enfrentar isso" delay={1150} /></span>
-              <span className={`block italic ${rose}`}><SplitText text="sozinha." delay={1600} /></span>
+              <span className="block"><SplitText text="enfrentar isso" delay={900} /></span>
+              <span className={`block italic ${rose}`}><SplitText text="sozinha." delay={1350} /></span>
             </h1>
 
             <p className="mt-8 max-w-xl text-[clamp(1.05rem,1.3vw,1.4rem)] leading-relaxed text-[#38423e]">
-              <SplitText by="word" delay={2000}
+              <SplitText by="word" delay={1750}
                 text="O Florável é um espaço seguro e acolhedor para te apoiar na sua jornada da maternidade, com informação, escuta e cuidado." />
             </p>
 
