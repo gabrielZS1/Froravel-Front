@@ -1,4 +1,3 @@
-// src/Screen/Landing/HomeScreen.jsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FlowerScroll from "../../Components/FlowerScroll/FlowerScroll";
@@ -16,14 +15,6 @@ const Arrow = () => (
     <path d="M1 6h19M15 1l5 5-5 5" />
   </svg>
 );
-
-const Leaf = () => (
-  <svg width="42" height="54" viewBox="0 0 34 44" fill="none" stroke="#c98a9d"
-    strokeWidth="1" strokeLinecap="round" aria-hidden="true">
-    <path d="M30 3C14 6 5 18 8 34c14-1 22-12 22-31zM8 34 4 42M12 27c5-4 9-9 12-15" />
-  </svg>
-);
-
 
 function CountUp({ to, prefix = "", suffix = "", delay = 2400, duration = 1800 }) {
   const [v, setV] = useState(0);
@@ -63,10 +54,12 @@ export default function HomeScreen() {
     <Hero background={background}>
       <div className="font-body relative flex h-full flex-col pt-20 text-[#2f3a36]">
         
+        {/* DEGRADÊ MELHORADO: Mais escuro na esquerda para dar contraste absoluto ao texto */}
         <div aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#fdf4ee]/85 via-[#fdf4ee]/55 to-transparent" />
+          className="pointer-events-none absolute inset-y-0 left-0 w-full md:w-[75%] bg-gradient-to-r from-[#fdf4ee] via-[#fdf4ee]/85 to-transparent z-0" />
 
-        <main className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center px-6 text-center lg:px-14">
+        {/* MUDANÇA AQUI: items-start e text-left para puxar tudo para a esquerda */}
+        <main className="relative z-10 mx-auto flex w-full max-w-[1500px] flex-col items-start justify-center px-6 text-left lg:px-14 h-full">
           <div className="max-w-3xl">
             <div className="mb-7 flex items-center gap-4 text-xs uppercase tracking-[0.28em] text-[#46504c] lg:text-[13px]">
               <span className="grow-x h-px w-10 bg-[#c98a9d]" style={{ "--d": "200ms" }} />
@@ -100,25 +93,18 @@ export default function HomeScreen() {
 
         {/* Dica de scroll: só faz sentido com a flor animada */}
         {!USAR_VIDEO && (
-          <div className="pointer-events-none flex flex-col items-center gap-2 pb-3 text-[10px] uppercase tracking-[0.3em] text-[#8a6f78] [@media(max-height:760px)]:hidden"
+          <div className="pointer-events-none flex flex-col items-start gap-2 pb-3 text-[10px] uppercase tracking-[0.3em] text-[#8a6f78] [@media(max-height:760px)]:hidden"
             style={{ opacity: "calc(1 - var(--p) * 8)" }}>
             Role para a flor se abrir
             <span className="nudge h-8 w-px bg-[#c98a9d]" />
           </div>
         )}
 
-        {/* Faixa inferior */}
+        {/* Faixa inferior de Estatísticas */}
         <footer className="fade-up relative z-10 px-6 pb-10 pt-12 lg:px-14" style={{ "--d": "3100ms" }}>
-          <div className="mx-auto grid max-w-[1500px] grid-cols-3 gap-4 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-            <div className="hidden items-center gap-5 lg:flex">
-              <Leaf />
-              <div>
-                <p className="font-display text-2xl italic">Aqui, cada sentimento importa.</p>
-                <p className="mt-1.5 text-[11px] uppercase tracking-[0.3em] text-[#46504c]">Você também é importante.</p>
-              </div>
-            </div>
+          <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-8 sm:grid-cols-3">
             {stats.map((s) => (
-              <div key={s.text} className="border-l border-[#e6c3cd] pl-4 lg:pl-8">
+              <div key={s.text} className="border-l border-[#e6c3cd] pl-6">
                 <p className={`font-display text-3xl lg:text-5xl ${rose}`}>
                   <CountUp to={s.n} prefix={s.prefix} suffix={s.suffix} />
                 </p>
@@ -131,3 +117,4 @@ export default function HomeScreen() {
     </Hero>
   );
 }
+

@@ -1,44 +1,66 @@
-// src/pages/Sobre/Sobre.jsx
-import Reveal from "../../Components/Reveal/Reveal";
-import SplitText from "../../Components/SplitText/SplitText";
+import { ArrowRight } from "lucide-react";
 
 export default function Sobre() {
   return (
-    <Reveal className="font-body mx-auto grid min-h-screen max-w-7xl items-center gap-14 px-6 py-28 text-[#2f3a36] lg:grid-cols-12 lg:px-10">
-      {/* Texto */}
-      <div className="space-y-7 lg:col-span-7">
-        <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-[#5b6561]">
-          <span className="grow-x h-px w-8 bg-[#c98a9d]" />
-          <SplitText text="Sobre o Florável" delay={100} />
-        </div>
+    <div className="bg-[#fbf1ee]">
+      <div className="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row items-center gap-16">
 
-        <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.8rem)] font-light leading-[1.08]">
-          <span className="block"><SplitText text="Um lugar para respirar," delay={300} /></span>
-          <span className="block italic text-[#a8566f]"><SplitText text="no seu tempo." delay={900} /></span>
-        </h2>
+        {/* Coluna Esquerda — Texto */}
+        <div className="flex-1 flex flex-col gap-7">
 
-        <p className="max-w-xl text-[17px] leading-relaxed text-[#46504c]">
-          <SplitText by="word" delay={1400}
-            text="O Florável nasceu para acompanhar mães que estão passando pela depressão pós-parto. Aqui você encontra informação confiável, profissionais especializados e outras mães que entendem o que você sente, sem julgamentos e sem pressa." />
-        </p>
+          <div className="flex items-center gap-3">
+            <span className="h-px w-8 bg-[#E8A9B8]" />
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#5b6561]">
+              Sobre o Florável
+            </span>
+          </div>
 
-        <div className="fade-up" style={{ "--d": "2600ms" }}>
-          <a href="#recursos"
-            className="group inline-flex items-center gap-3 rounded-full bg-[#2f3a36] px-9 py-4 text-white shadow-lg shadow-[#2f3a36]/25 transition duration-300 hover:-translate-y-0.5">
+          <h2
+            className="text-[40px] md:text-[56px] leading-tight text-[#1F3224]"
+            style={{ fontFamily: "Fraunces, serif" }}
+          >
+            Um lugar para respirar,{" "}
+            <span className="italic text-[#E8A9B8]">no seu tempo.</span>
+          </h2>
+
+          <p className="text-[#4F4F4F] text-[18px] leading-relaxed max-w-xl">
+            O Florável nasceu para acompanhar mães que estão passando pela
+            depressão pós-parto. Aqui você encontra informação confiável,
+            profissionais especializados e outras mães que entendem o que você
+            sente, sem julgamentos e sem pressa.
+          </p>
+
+          <a
+            href="#recursos"
+            className="group inline-flex items-center gap-3 bg-[#1F3224] hover:bg-[#516B55] text-white px-8 py-4 rounded-full font-bold shadow-lg shadow-[#1F3224]/20 transition-all duration-300 w-fit"
+          >
             Conhecer os recursos
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+            <ArrowRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-1.5"
+            />
           </a>
         </div>
-      </div>
 
-      {/* Imagens: troque os blocos por <img src="..." className="h-full w-full object-cover" /> */}
-      <div className="fade-left space-y-5 lg:col-span-5" style={{ "--d": "800ms" }}>
-        <div className="float aspect-[4/3] w-full rounded-[28px] bg-gradient-to-br from-[#f6dfe6] to-[#fbd9c4] shadow-xl shadow-rose-200/50" />
-        <div className="flex gap-4">
-          <div className="h-24 w-24 rounded-2xl bg-[#f6e0e4] shadow-md" />
-          <div className="h-24 w-24 rounded-2xl bg-[#fbe3d3] shadow-md" />
+        {/* Coluna Direita — Colagem de Imagens */}
+        <div className="flex-1 relative w-full h-[450px] md:h-[550px]">
+
+          <div className="absolute top-10 left-10 w-64 h-64 bg-[#E8A9B8]/30 rounded-full blur-3xl z-0" />
+
+          <img
+            src="/img/maeDescansando.jpg"
+            alt="Mãe descansando"
+            className="absolute top-0 right-0 w-[85%] h-[400px] md:h-[480px] object-cover rounded-[32px] shadow-2xl z-10 transition-transform duration-700 hover:scale-[1.02]"
+          />
+
+          <img
+            src="/img/maeexausta.jpg"
+            alt="Mãe acolhida"
+            className="absolute bottom-0 left-0 w-[60%] h-[250px] md:h-[300px] object-cover rounded-[24px] shadow-xl z-20 border-8 border-[#fbf1ee] transition-transform duration-700 hover:-translate-y-2"
+          />
         </div>
+
       </div>
-    </Reveal>
+    </div>
   );
 }
